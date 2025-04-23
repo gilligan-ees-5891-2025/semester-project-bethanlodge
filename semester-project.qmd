@@ -17,6 +17,8 @@ Set up R environment by loading the necessary libraries
 library(knitr)
 library(scales)
 library(tidyverse)
+library(ggplot2)
+library(tidyr)
 
 # maybe include other libraries:
 # library(tidymodels)
@@ -35,11 +37,84 @@ Describe your data set: what data are you looking at? Where did you get it from 
 
 You may want to incude code to read the data in.
 
+Stalagmites are archives for a wide array of proxy data. Trace element (TE) data can be collected using a LA-ICP-MS. The TE data is often normalised against Ca, which is a dominant element within the stalagmite. The .csv file contains many minor elements. The ones that will be focused on here will be Mg/Ca, Sr/Ca, U/Ca, P/Ca, Al/Ca and B/Ca. TE data has been collected for the full length of the stalagmite Hato 2.5 (H2.5).
+
+```{r}
+data <- read.csv("H2.5.csv")
+```
+
 ## Descriptive Statistics
 
 Put code and text to calculate and present descriptive statistics for your data. This should include histograms and kernel-density plots of the distribution of each variable you will be studying. If you have multivariate data, a pairs plot is helpful for showing the correlations and covariance between different variables.
 
 Describe the probability distribution of the data: is it normal or some other distribution? Histograms and Q-Q plots can be helpful here.
+
+```{r}
+# columns
+elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
+
+# plotting
+par(mfrow = c(2, 3))
+
+for (element in elements) {
+  qqnorm(data[[element]], main = paste("Q-Q Plot of", element))
+  qqline(data[[element]], col = "red")
+}
+
+```
+
+```{r}
+# pivot_longer
+long_data <- pivot_longer(data, 
+                          cols = c(MgCa, SrCa, UCa, AlCa, BaCa, PCa),
+                          names_to = "Element", 
+                          values_to = "Value")
+
+# kernel density plots
+ggplot(long_data, aes(x = Value, fill = Element)) +
+  geom_density(alpha = 0.6) +
+  facet_wrap(~ Element, scales = "free") +
+  theme_minimal() +
+  labs(title = "Kernel Density Plots of Elemental Ratios",
+       x = "Value", y = "Density")
+
+```
+
+```{r}
+
+# pivot_longer
+long_data <- pivot_longer(data, 
+                          cols = c(MgCa, SrCa, UCa, AlCa, BaCa, PCa),
+                          names_to = "Element", 
+                          values_to = "Value")
+
+# histogram plotting
+ggplot(long_data, aes(x = Value, fill = Element)) +
+  geom_histogram(bins = 30, alpha = 0.7, color = "white") +
+  facet_wrap(~ Element, scales = "free") +
+  theme_minimal() +
+  labs(title = "Histograms of Elemental Ratios",
+       x = "Value", y = "Count")
+
+```
+
+```{r}
+# columns
+elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
+
+par(mfrow = c(2, 3))
+
+for (element in elements) {
+  # remove '0' and NaN
+  values <- data[[element]]
+  log_values <- log10(values[values > 0])
+  
+  # q-q plots log transformed
+  qqnorm(log_values, main = paste("Log10 Q-Q Plot of", element))
+  qqline(log_values, col = "red")
+}
+
+```
 
 ## Research Questions
 
