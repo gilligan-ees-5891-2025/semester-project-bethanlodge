@@ -31,13 +31,11 @@ theme_set(theme_bw())
 
 Write the introduction: describe what data you're going to study, why you're interested in it, where you obtained the data, and any other relevant background.
 
-### Date set
+### Data set
 
 Describe your data set: what data are you looking at? Where did you get it from (cite publications if relevant), etc. Describe what the data is: what variables are measured, how many observations (rows in a data table) does it contain, etc.
 
-You may want to incude code to read the data in.
-
-Stalagmites are archives for a wide array of proxy data. Trace element (TE) data can be collected using a LA-ICP-MS. The TE data is often normalised against Ca, which is a dominant element within the stalagmite. The .csv file contains many minor elements. The ones that will be focused on here will be Mg/Ca, Sr/Ca, U/Ca, P/Ca, Al/Ca and B/Ca. TE data has been collected for the full length of the stalagmite Hato 2.5 (H2.5).
+Stalagmites are archives for a wide array of proxy data. Trace element (TE) data can be collected using a LA-ICP-MS. The TE data is often normalised against Ca before being plotted against depth or age. The .csv file contains many minor elements. The ones that will be focused on here will be Mg/Ca, Sr/Ca, U/Ca, P/Ca, Al/Ca and B/Ca. TE data has been collected for the full length of the stalagmite Hato 2.5 (H2.5).
 
 ```{r}
 data <- read.csv("H2.5.csv")
@@ -113,6 +111,84 @@ for (element in elements) {
   qqnorm(log_values, main = paste("Log10 Q-Q Plot of", element))
   qqline(log_values, col = "red")
 }
+
+```
+
+```{r}
+# Columns
+elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
+
+# Set up plotting area
+par(mfrow = c(2, 3))
+
+# Plot kernel density for each element
+for (element in elements) {
+  values <- data[[element]]
+  log_values <- log10(values[values > 0])  # Filter and log-transform
+
+  plot(density(log_values, na.rm = TRUE),
+       main = paste("Log10 Density of", element),
+       xlab = paste("log10(", element, ")", sep = ""),
+       ylab = "Density",
+       col = "darkgreen",
+       lwd = 2)
+}
+
+```
+
+```{r}
+# Set up plotting area
+par(mfrow = c(2, 3))
+
+# Plot histogram for each element
+for (element in elements) {
+  values <- data[[element]]
+  log_values <- log10(values[values > 0])  # Filter and log-transform
+
+  hist(log_values,
+       main = paste("Log10 Histogram of", element),
+       xlab = paste("log10(", element, ")", sep = ""),
+       col = "lightcoral",
+       border = "white")
+}
+
+```
+
+```{r}
+df <- read.csv("H2.5.csv")
+
+# Define the elements
+elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
+
+# Subset the data for only those columns
+subset_data <- df[, elements]
+
+# Create pairs plot
+pairs(subset_data,
+      main = "Pairwise Scatterplots of Elemental Ratios",
+      pch = 19,
+      col = "steelblue")
+
+```
+
+```{r}
+# Define the elements again (just to be safe)
+elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
+
+# Subset the data
+subset_data <- df[, elements]
+
+# Log-transform and handle non-positive values
+log_data <- log10(subset_data)
+
+# Optionally remove rows with any non-finite values (e.g. -Inf from log(0))
+log_data <- log_data[apply(log_data, 1, function(row) all(is.finite(row))), ]
+
+# Create the pairs plot
+pairs(log_data,
+      main = "Pairwise Scatterplots of log10(Elemental Ratios)",
+      pch = 19,
+      col = "darkred")
 
 ```
 
