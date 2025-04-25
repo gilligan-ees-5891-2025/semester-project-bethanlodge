@@ -19,6 +19,8 @@ library(scales)
 library(tidyverse)
 library(ggplot2)
 library(tidyr)
+library(factoextra)
+library(forecast)
 
 # maybe include other libraries:
 # library(tidymodels)
@@ -31,21 +33,29 @@ theme_set(theme_bw())
 
 Write the introduction: describe what data you're going to study, why you're interested in it, where you obtained the data, and any other relevant background.
 
+Secondary cave minerals such as stalagmites host geochemical data that can record regional climate variability and have provided essential information on environmental relationships and impacts all over the world. A primary reason for the utility of stalagmites is their ability to be precisely and accurately dated using uranium-thorium (U-Th) geochronology. However, in the tropics, stalagmites are typically found in caves developed in young, uplifted fossil reef rocks. These host rocks can supply unsupported thorium to the growing stalagmites, thus limiting the ability to date them using U-Th techniques (1,2). Curaçao is a small island in the southern Caribbean north of Venezuela. On Curaçao, three uplifted fossil reef terraces host caves with actively precipitating stalagmites that may record recent environmental changes. However, U-Th dating efforts have produced ages much older than anticipated due to the increased and variable thorium.
+
+The Caribbean Sea plays a critical role in mediating global climate. Small Island Developing States, such as Curaçao, are projected to face increased temperatures and intervals of drought, and heavier rainfall events (3). However, little information about long-term climate variability is available from the southern Caribbean. Further, while hurricanes are currently rare in Curaçao, their occurrence can have devastating effects on the local and regional economy, as evidenced by Hurricane Tomas in 2010 which led to \$115 million in damages (4). To provide critical long-term context for modern changes and response to storm events, I am developing geochemical records from actively growing stalagmites collected from Hato Cave in Curaçao.
+
+Four small (4-7 cm), actively dripping stalagmites were collected from Hato Cave in 2022. Upon removal of the stalagmites, artificial substrates were placed underneath the drip sites to collect fresh precipitating calcite. Preliminary oxygen isotope (d^18^O) analysis of stalagmite HC-2.5 reveals distinct negative excursions similar to hurricane signatures noted in other tropical stalagmite records \[7\]. Further, trace element (TE) data demonstrates regular fluctuations in Sr/Ca, U/Ca, and Mg/Ca. These fluctuations may record seasonal or inter-annual variations above the cave.
+
 ### Data set
 
-Describe your data set: what data are you looking at? Where did you get it from (cite publications if relevant), etc. Describe what the data is: what variables are measured, how many observations (rows in a data table) does it contain, etc.
-
-Stalagmites are archives for a wide array of proxy data. Trace element (TE) data can be collected using a LA-ICP-MS. The TE data is often normalised against Ca before being plotted against depth or age. The .csv file contains many minor elements. The ones that will be focused on here will be Mg/Ca, Sr/Ca, U/Ca, P/Ca, Al/Ca and B/Ca. TE data has been collected for the full length of the stalagmite Hato 2.5 (H2.5).
+Stalagmites are archives for a wide array of proxy data. Trace element (TE) data has been collected using a Laser Ablation ICP-MS at Vanderbilt University Fall 2024 for a small rapidly growing stalagmite from Curaçao. The TE data has been normalised against Ca before being plotted against depth or age. The .csv file contains many minor elements. TE data has been collected for the full length of the stalagmite Hato 2.5 (H2.5). The TE .csv file has 3899 rows of data and 46 columns. However, the ones that will be focused on here will be 7 columns; Distance (from the top of the stalagmite), Mg/Ca, Sr/Ca, U/Ca, P/Ca, Al/Ca and B/Ca. While age would be the usual variable that TE would be plotted against, due to the many difficulties in attempting to date topical stalagmites, we do not have an age model for the stalagmite that we are confident has produced reliable ages for the full length of the stalagmite.
 
 ```{r}
 data <- read.csv("H2.5.csv")
 ```
 
+```{r}
+knitr::include_graphics("TE_data_with_inset.png")
+```
+
+Figure 1. Trace element and stable isotope data for stalagmite H2.5 plotted by depth from the top of the stalagmite. Red arrows and shading indicate negative oxygen isotopic excursion which may indicate increased input of precipitation from tropical storms. Red dashed lines on the inset image show the sampling pathway for TE and stable isotope data. Stable isotopes have only been collected on the upper 15 mm. Blue arrows on the P/Ca plot and image inset indicate locations of spikes in the TE ratios and corresponding bands in the stalagmite.
+
 ## Descriptive Statistics
 
-Put code and text to calculate and present descriptive statistics for your data. This should include histograms and kernel-density plots of the distribution of each variable you will be studying. If you have multivariate data, a pairs plot is helpful for showing the correlations and covariance between different variables.
-
-Describe the probability distribution of the data: is it normal or some other distribution? Histograms and Q-Q plots can be helpful here.
+To better understand and visualise the data, I have plotted each of the variables in which I am interested in on Q-Q plots, histograms, and kernel density plots. These will allow me to identify whether the data is normally distributed or whether the data is at all skewed. Pairs plots have also been used to identify whether there is any relationship between variables.
 
 ```{r}
 # columns
@@ -66,15 +76,15 @@ for (element in elements) {
 long_data <- pivot_longer(data, 
                           cols = c(MgCa, SrCa, UCa, AlCa, BaCa, PCa),
                           names_to = "Element", 
-                          values_to = "Value")
+                          values_to = "Values")
 
 # kernel density plots
-ggplot(long_data, aes(x = Value, fill = Element)) +
+ggplot(long_data, aes(x = Values, fill = Element)) +
   geom_density(alpha = 0.6) +
   facet_wrap(~ Element, scales = "free") +
   theme_minimal() +
   labs(title = "Kernel Density Plots of Elemental Ratios",
-       x = "Value", y = "Density")
+       x = "mmol/mol", y = "Density")
 
 ```
 
@@ -84,7 +94,7 @@ ggplot(long_data, aes(x = Value, fill = Element)) +
 long_data <- pivot_longer(data, 
                           cols = c(MgCa, SrCa, UCa, AlCa, BaCa, PCa),
                           names_to = "Element", 
-                          values_to = "Value")
+                          values_to = "mmol/mol")
 
 # histogram plotting
 ggplot(long_data, aes(x = Value, fill = Element)) +
@@ -95,6 +105,26 @@ ggplot(long_data, aes(x = Value, fill = Element)) +
        x = "Value", y = "Count")
 
 ```
+
+```{r}
+df <- read.csv("H2.5.csv")
+
+#elements
+elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
+
+subset_data <- df[, elements]
+
+#plot
+pairs(subset_data,
+      main = "Pairwise Scatterplots of Elemental Ratios",
+      pch = 19,
+      col = "steelblue")
+
+```
+
+From the descriptive statistics, we can see that none of the elements are normally distributed. The are all skewed at the upper and lower bounds. From the pairs plot, we can see that there are some positive linear relationships between variables. This information is useful for further investigation of the data and potential for regression analysis.
+
+To further visualise the data, I have log transformed the dataset to identify whether that transforms the data to something that appears to be normally distributed.
 
 ```{r}
 # columns
@@ -115,17 +145,15 @@ for (element in elements) {
 ```
 
 ```{r}
-# Columns
 elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
 
-# Set up plotting area
 par(mfrow = c(2, 3))
 
-# Plot kernel density for each element
+#plot
 for (element in elements) {
   values <- data[[element]]
-  log_values <- log10(values[values > 0])  # Filter and log-transform
-
+  log_values <- log10(values[values > 0]) 
+  
   plot(density(log_values, na.rm = TRUE),
        main = paste("Log10 Density of", element),
        xlab = paste("log10(", element, ")", sep = ""),
@@ -137,13 +165,12 @@ for (element in elements) {
 ```
 
 ```{r}
-# Set up plotting area
 par(mfrow = c(2, 3))
 
-# Plot histogram for each element
+#plot
 for (element in elements) {
   values <- data[[element]]
-  log_values <- log10(values[values > 0])  # Filter and log-transform
+  log_values <- log10(values[values > 0]) 
 
   hist(log_values,
        main = paste("Log10 Histogram of", element),
@@ -155,36 +182,16 @@ for (element in elements) {
 ```
 
 ```{r}
-df <- read.csv("H2.5.csv")
-
-# Define the elements
+#element data
 elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
 
-# Subset the data for only those columns
 subset_data <- df[, elements]
 
-# Create pairs plot
-pairs(subset_data,
-      main = "Pairwise Scatterplots of Elemental Ratios",
-      pch = 19,
-      col = "steelblue")
-
-```
-
-```{r}
-# Define the elements again (just to be safe)
-elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
-
-# Subset the data
-subset_data <- df[, elements]
-
-# Log-transform and handle non-positive values
 log_data <- log10(subset_data)
 
-# Optionally remove rows with any non-finite values (e.g. -Inf from log(0))
 log_data <- log_data[apply(log_data, 1, function(row) all(is.finite(row))), ]
 
-# Create the pairs plot
+#plot
 pairs(log_data,
       main = "Pairwise Scatterplots of log10(Elemental Ratios)",
       pch = 19,
@@ -192,11 +199,19 @@ pairs(log_data,
 
 ```
 
+After the log transformation, we can see that the data looks closer to a normal distribution. However, it is still skewed, especially towards the higher values. We can determinet hat the data is not normally distributed, and while a log transform helps with reducing the outliers, they are still significant.
+
 ## Research Questions
 
-This is a place to describe the research questions you want to ask about your data.
+How do geochemical proxies from a rapidly precipitating stalagmite from Curaçao reflect local climate and environmental change?
 
-It's helpful to use tables and/or graphs to illustrate what you're thinking about and what questions you want to ask.
+Do we see a difference between rock and soil source and or interactions recorded in the stalagmite?
+
+Do these rapidly growing stalagmites from Curaçao demonstrate seasonality?
+
+Do we see any anomalous layers that have significantly increased or reduced TE concentrations?
+
+Can we make any predictions of what the future TE may have looked like?
 
 ## Hypotheses and Tests
 
@@ -206,20 +221,205 @@ Put code to implement the analysis and hypothesis tests, and include interpretat
 
 ### Hypotheses
 
-State your hypothesis or hypotheses
+Below are some hypotheses in relation to my data and research questions.
+
+H1: Trace element ratios Al/Ca and P/Ca will be identifiable from a soil source, whereas Sr/Ca, Ba/Ca and U/Ca will be identifiable as from a rock source.
+
+H2: Fluctuations in the TE will be reflective of seasonal changes in the hydroclimate.
+
+H3: Darker layers will have increased TE concentrations compared to visually lighter layers.
 
 ### Methods
 
-Describe the methods you'll use to analyze your data in preparation for testing hypotheses. Include the analysis code.
+To test my hypotheses, I will first start with a principal component analysis. This will allow me to determine whether the TE are from a rock source or soil derived. From the PCA, I will further identify any points of increased TE concentrations through the PCA and also through plotting of the data.
+
+I will then plot an ACF and PACF of each of the elements to determine the trend and which regression would be the best option for the data. I will then try out an AR, MA, ARMA and ARIMA model.
 
 ### Hypothesis Tests
 
 Details about the hypothesis tests, including code
 
+```{r}
+
+df <- read.csv("H2.5.csv")
+elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
+log_data <- log10(df[, elements])
+
+#data clean
+log_data_clean <- log_data[complete.cases(log_data) & apply(log_data, 1, function(row) all(is.finite(row))), ]
+
+#pca
+pca_result <- prcomp(log_data_clean, scale. = TRUE)
+
+#1 vs2
+fviz_pca_biplot(pca_result,
+                axes = c(1, 2),
+                label = "var",              
+                col.var = "firebrick",     
+                col.ind = "steelblue",   
+                repel = TRUE,
+                title = "PCA Biplot: PC1 vs PC2")
+
+#2 vs 3
+fviz_pca_biplot(pca_result,
+                axes = c(2, 3),
+                label = "var",
+                col.var = "firebrick",
+                col.ind = "steelblue",
+                repel = TRUE,
+                title = "PCA Biplot: PC2 vs PC3")
+
+#1 vs 3
+fviz_pca_biplot(pca_result,
+                axes = c(1, 3),
+                label = "var",
+                col.var = "firebrick",
+                col.ind = "steelblue",
+                repel = TRUE,
+                title = "PCA Biplot: PC1 vs PC3")
+
+```
+
+```{r}
+library(forecast)
+
+for (element in elements) {
+  data <- df[[element]]
+
+   data <- log(data)
+
+  #remove NA
+  data <- na.omit(data)
+
+  #plot ACF and PACF
+  par(mfrow = c(1, 2)) 
+  acf(data, main = paste("ACF of", element))
+  pacf(data, main = paste("PACF of", element))
+}
+
+```
+
+```{r}
+
+elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
+
+model_aics <- data.frame(Element = elements, ARIMA = NA, AR = NA, MA = NA, ARMA = NA)
+model_rmse <- data.frame(Element = elements, ARIMA = NA, AR = NA, MA = NA, ARMA = NA)
+
+#make loop
+for (i in seq_along(elements)) {
+  element <- elements[i]
+  
+  x <- df[[element]]
+  x_clean <- x[!is.na(x)]
+  
+  x_diff <- diff(x_clean)
+  
+  #acf and pacf plots
+  par(mfrow = c(1, 2))
+  acf(x_diff, main = paste("ACF of Differenced", element))
+  pacf(x_diff, main = paste("PACF of Differenced", element))
+  
+  #fit ARIMA(1,1,1)
+  model_arima <- arima(x_clean, order = c(1, 1, 1))
+  
+  #fit AR(1)
+  model_ar <- arima(x_clean, order = c(1, 0, 0))
+  
+  #fit MA(1)
+  model_ma <- arima(x_clean, order = c(0, 0, 1))
+  
+  #fit ARMA(1,1)
+  model_arma <- arima(x_clean, order = c(1, 0, 1))
+  
+  #get rmse
+  rmse_arima <- sqrt(mean((residuals(model_arima))^2))
+  rmse_ar <- sqrt(mean((residuals(model_ar))^2))
+  rmse_ma <- sqrt(mean((residuals(model_ma))^2))
+  rmse_arma <- sqrt(mean((residuals(model_arma))^2))
+  
+  model_aics$ARIMA[i] <- AIC(model_arima)
+  model_aics$AR[i] <- AIC(model_ar)
+  model_aics$MA[i] <- AIC(model_ma)
+  model_aics$ARMA[i] <- AIC(model_arma)
+  
+  model_rmse$ARIMA[i] <- rmse_arima
+  model_rmse$AR[i] <- rmse_ar
+  model_rmse$MA[i] <- rmse_ma
+  model_rmse$ARMA[i] <- rmse_arma
+  
+  #print things
+  cat("\n---", element, "---\n")
+  cat("ARIMA(1,1,1) AIC:", AIC(model_arima), " RMSE:", rmse_arima, "\n")
+  cat("AR(1)        AIC:", AIC(model_ar), " RMSE:", rmse_ar, "\n")
+  cat("MA(1)        AIC:", AIC(model_ma), " RMSE:", rmse_ma, "\n")
+  cat("ARMA(1,1)    AIC:", AIC(model_arma), " RMSE:", rmse_arma, "\n")
+}
+
+print(model_aics)
+print(model_rmse)
+
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(pracma)
+
+
+elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
+thresholds <- c(2.7, 0.1, 0.00005, 0.15, 0.001, 0.3)  
+
+#loop
+for (i in seq_along(elements)) {
+  element <- elements[i]
+  threshold <- thresholds[i]  
+  
+  df_element <- df %>%
+    select(Distance, all_of(element)) %>%
+    filter(!is.na(.data[[element]])) %>%
+    arrange(Distance)
+  
+  df_element$Distance <- as.numeric(df_element$Distance)
+  
+  peaks <- findpeaks(df_element[[element]], threshold = threshold)  
+
+  peak_count <- nrow(peaks)
+  
+  p <- ggplot(df_element, aes(x = Distance, y = .data[[element]])) +
+    geom_line(color = "blue", size = 1) +
+    geom_point(data = df_element[peaks[, 2] == 1, ], aes(x = Distance, y = .data[[element]]), color = "red", size = 2) +  # Mark peaks in red
+    labs(title = paste(element, "against Depth (Distance)"),
+         x = "Distance (mm)", y = paste(element, "Ratio")) +
+    annotate("text", x = max(as.numeric(df_element$Distance)) * 0.8, y = max(df_element[[element]]) * 0.9,
+             label = paste("Peak Count:", peak_count), color = "black", size = 5) +
+    theme_minimal()
+  
+  print(p)
+}
+
+```
+
 ### Results and Discussion
 
-Results from your hypothesis tests and discussion, interpreting your results
+From the PCA analysis of the TE data, we can see that dimension 1/PC 1 accounts for 49.3%. Each element is in the positive side. Each of the elements are dominated by the large spread of the data across dimension 1. The points that above 5 in the PCA are points that correlate to the labeled darker layers on the inset of fig. 1. These are dominating the data, and overshadowing any subtler variations in the TE data. I therefore move to look at PC 2 vs. PC3. PC 2 accounts for 20.4% of the variation, and PC 3 accounts for 13.5%. Here we can see that the large outliers have mostly been 'hidden', allowing for the more subtle variations between the TE to show. We can see that Al/Ca and P/Ca are both clustered in the same quadrant, and U/Ca, Ba/Ca and Sr/Ca are also clustered together. From this, we can determine that Al/Ca and P/Ca are likely from a soil source. These layers with the increased TE data generally have a significant visual difference, and are substantially darker. This darker material is likely organic rich. This layer of organic material may represent a slow in the drip and therefore growth of the stalagmite, allowing for organic material, potentially black algae, to grow over the surface of the stalagmite. We see this layering through a lot of the stalagmite until the top 15 mm. The reason behind the cease of organic matter growth is unknown, and an area of study as to why it has changed. Additionally, not every dark layer within the stalagmite has increased TE concentrations. Further information on the crystalline structure of the stalagmite and ages is needed to better understand the visual and chemical changes.
+
+I then moved to looking at regression models. To determine which model would be the best to use, I investigated an AR, MA, ARMA and ARIMA model. From the AIC and RMSE values, I concluded that the ARMA model would be the best overall option for the elements. While the AIC for AR for Al/Ca is slightly lower, the RMSE for ARMA is lower. As the ARMA model is the better fit for the other elements, I decided to move forward with the ARMA model. However, due to the lack of ages associated with the data at the current point in the research, and irregular spacing between each data point, there were difficulties in running the ARMA model to predict future changes in the stalagmite TE data concentrations. Also, considering the unknown impacts and causes of the visual layering and the increased concentrations on some layers, it could be difficult to predict these. Additional understanding of the mechanisms that create the variations in the stalagmite laminae is required.
+
+Peak counting was used for each of the elements to determine whether the laminae in the stalagmite may be seasonal variation, and therefore representative for seasonal fluctuations in the hydroclimate. However, as the data includes a lot of noise, and a lack of dates to determine how many of the peaks occur during a single year, the identification of seasonal hydroclimate controls are still unknown for the tropical stalagmite.
 
 ## Conclusions
 
-What did you learn? What results would a reader be interested in? What would be the next steps if you were to continue studying this data after the end of the semester?
+From analysing the data, I found that none of the elements after being normalised to Ca and log transformed are normally distributed. While the log transform shifts many of the elements closer to a normal distribution, there are still skewed. This skew likely originates from the large peaks in the data that we see when we plot the TE against depth. These peaks correlate to significantly visually darker layers in the stalagmite, potentially corresponding to increased organic matter. While these peaks also dominate the PCA, when considering PC3, we can see more subtle variations, where the host rock vs. soil influences can be pulled apart. Due to the limited dating ability and few ages that we have for the stalagmite at the current research point, it is difficult to identify whether the fluctuations in the TE are seasonally related. Peak counting of the trace element data was an initial step to identify whether each TE demonstrated a similar constant cyclicity. However, it is unclear whether are are all under the same seasonal cycle, and how the varying organic matter present within the stalagmite impacts the inclusion of TE. Further work would be to identify layers within the stalagmite of elements using a scanning-XRF. This would allow for accurate counting and identification of seasonality, or confirmation of a different control potentially ENSO related cycle. This would allow for further investigation into the hydroclimate of the stalagmite.
+
+Next steps to further investigate the data, would involve an effective and reliable age dataset to better understand the stalagmite and the environment in which it grew. The sample that the TE data has been taken on here is a suitable candidate for radiocarbon dating due to its young age and little to no dead carbon. This would be integrated into the bayesian age model (IBIS) that is currently being developed to inform ages for stalagmites that have high initial and variable Th in their composition. Additionally, isotope data will be collected for the rest of the stalagmite and at a higher resolution to better understand hydroclimate variability recorded in the oxygen isotopes.
+
+## **References**
+
+1.         Hua Q, McDonald J, Redwood D, Drysdale R, Lee S, Fallon S, et al. Robust chronological reconstruction for young speleothems using radiocarbon. Quaternary Geochronology. 2012 Dec;14:67–80.
+
+2.         Faraji M, Borsato A, Frisia S, Hellstrom JC, Lorrey A, Hartland A, et al. Accurate dating of stalagmites from low seasonal contrast tropical Pacific climate using Sr 2D maps, fabrics and annual hydrological cycles. Sci Rep. 2021 Jan 26;11(1):2178.
+
+3.         Pomares-Meza GM, Camargo Caicedo Y, Vélez-Pereira AM. Long-Term Spatiotemporal Analysis of Precipitation Trends with Implications of ENSO-Driven Variability in the Department of Magdalena, Colombia. Water. 2024 Nov 23;16(23):3372.
+
+4.         Rise N, Oura C, Drewry J. Climate change and health in the Caribbean: A review highlighting research gaps and priorities. The Journal of Climate Change and Health. 2022 Oct;8:100126.
