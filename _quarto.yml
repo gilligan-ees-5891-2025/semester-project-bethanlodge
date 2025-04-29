@@ -4,4 +4,13 @@ project:
 editor: visual
 execute:
   echo: true
-  cache: false
+  cache: true
+knitr:
+  opts_chunk:
+    echo: true
+    cache: true
+    cache.lazy: false
+
+format:
+  html:
+    css: "css/grading.css"

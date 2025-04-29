@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Put your name here">
-<meta name="dcterms.date" content="2025-04-08">
+<meta name="dcterms.date" content="2025-04-29">
 
 <title>Put the title of your project here</title>
 <style>
@@ -71,6 +71,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="semester-project_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
+<link rel="stylesheet" href="css/grading.css">
 </head>
 
 <body class="fullcontent">
@@ -99,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 8, 2025</p>
+      <p class="date">April 29, 2025</p>
     </div>
   </div>
   
@@ -111,6 +112,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="comment">
+<p>My comments will appear in colored boxes like this.</p>
+</div>
+<div class="comment problem">
+<p>You forgot to give your project a title and put your name as the author.</p>
+</div>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>Set up R environment by loading the necessary libraries</p>
@@ -118,32 +125,361 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># maybe include other libraries:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidymodels)</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># set up default plotting format for ggplot2 graphs</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># maybe include other libraries:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidymodels)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># set up default plotting format for ggplot2 graphs</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Write the introduction: describe what data you’re going to study, why you’re interested in it, where you obtained the data, and any other relevant background.</p>
-<section id="date-set" class="level3">
-<h3 class="anchored" data-anchor-id="date-set">Date set</h3>
-<p>Describe your data set: what data are you looking at? Where did you get it from (cite publications if relevant), etc. Describe what the data is: what variables are measured, how many observations (rows in a data table) does it contain, etc.</p>
-<p>You may want to incude code to read the data in.</p>
+<div class="comment">
+<p>Think about this as a report to be read. My intention was for you to replace my prompts with your text.</p>
+<p>I’m not taking any points off for this, but keep in mind to think about a quarto document as a real report for someone to read.</p>
+</div>
+<p>Secondary cave minerals such as stalagmites host geochemical data that can record regional climate variability and have provided essential information on environmental relationships and impacts all over the world. A primary reason for the utility of stalagmites is their ability to be precisely and accurately dated using uranium-thorium (U-Th) geochronology. However, in the tropics, stalagmites are typically found in caves developed in young, uplifted fossil reef rocks. These host rocks can supply unsupported thorium to the growing stalagmites, thus limiting the ability to date them using U-Th techniques (1,2). CuraC’ao is a small island in the southern Caribbean north of Venezuela. On CuraC’ao, three uplifted fossil reef terraces host caves with actively precipitating stalagmites that may record recent environmental changes. However, U-Th dating efforts have produced ages much older than anticipated due to the increased and variable thorium.</p>
+<p>The Caribbean Sea plays a critical role in mediating global climate. Small Island Developing States, such as CuraC’ao, are projected to face increased temperatures and intervals of drought, and heavier rainfall events (3). However, little information about long-term climate variability is available from the southern Caribbean. Further, while hurricanes are currently rare in CuraC’ao, their occurrence can have devastating effects on the local and regional economy, as evidenced by Hurricane Tomas in 2010 which led to $115 million in damages (4). To provide critical long-term context for modern changes and response to storm events, I am developing geochemical records from actively growing stalagmites collected from Hato Cave in CuraC’ao.</p>
+<p>Four small (4-7 cm), actively dripping stalagmites were collected from Hato Cave in 2022. Upon removal of the stalagmites, artificial substrates were placed underneath the drip sites to collect fresh precipitating calcite. Preliminary oxygen isotope (d<sup>18</sup>O) analysis of stalagmite HC-2.5 reveals distinct negative excursions similar to hurricane signatures noted in other tropical stalagmite records [7]. Further, trace element (TE) data demonstrates regular fluctuations in Sr/Ca, U/Ca, and Mg/Ca. These fluctuations may record seasonal or inter-annual variations above the cave.</p>
+<div class="comment">
+<p>This is a very nice introduction that explains what data you will be analyzing, why it’s interesting and scientifically important and why Curaçao is particularly interesting.</p>
+</div>
+<section id="data-set" class="level3">
+<h3 class="anchored" data-anchor-id="data-set">Data set</h3>
+<p>Stalagmites are archives for a wide array of proxy data. Trace element (TE) data has been collected using a Laser Ablation ICP-MS at Vanderbilt University Fall 2024 for a small rapidly growing stalagmite from CuraC’ao. The TE data has been normalised against Ca before being plotted against depth or age. The .csv file contains many minor elements. TE data has been collected for the full length of the stalagmite Hato 2.5 (H2.5). The TE .csv file has 3899 rows of data and 46 columns. However, the ones that will be focused on here will be 7 columns; Distance (from the top of the stalagmite), Mg/Ca, Sr/Ca, U/Ca, P/Ca, Al/Ca and B/Ca. While age would be the usual variable that TE would be plotted against, due to the many difficulties in attempting to date topical stalagmites, we do not have an age model for the stalagmite that we are confident has produced reliable ages for the full length of the stalagmite.</p>
+<div class="comment">
+<p>Good description of the specific trace-element measurements you will be looking at, and the stalagmite the observations come from.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"H2.5.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="comment">
+<p>The data gets kind of messy because the CSV file has several different sections, with different headers (rows 1, 16385, 32769, etc.) It would be useful to split it into multiple files, each containing the different data, and read these in as separate data frames.</p>
+<p>I’m replacing your code with the following, which produces a much smaller data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r grade-src code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"H2.5.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span> <span class="fu">is.na</span>(Distance))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">"TE_data_with_inset.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TE_data_with_inset.png" class="img-fluid figure-img" width="464"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 1. Trace element and stable isotope data for stalagmite H2.5 plotted by depth from the top of the stalagmite. Red arrows and shading indicate negative oxygen isotopic excursion which may indicate increased input of precipitation from tropical storms. Red dashed lines on the inset image show the sampling pathway for TE and stable isotope data. Stable isotopes have only been collected on the upper 15 mm. Blue arrows on the P/Ca plot and image inset indicate locations of spikes in the TE ratios and corresponding bands in the stalagmite.</p>
+<div class="comment">
+<p>What you did here is fine, but you can also include a graphic file into a Quarto document without needing to use R code by using the “Insert” menu and choosing “Figure/Image” if you’re in the Visual editor mode, or by putting <code>![alternate text](TE_data_with_inset.png)</code> if you’re editing in Source mode.</p>
+</div>
 </section>
 </section>
 <section id="descriptive-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="descriptive-statistics">Descriptive Statistics</h2>
-<p>Put code and text to calculate and present descriptive statistics for your data. This should include histograms and kernel-density plots of the distribution of each variable you will be studying. If you have multivariate data, a pairs plot is helpful for showing the correlations and covariance between different variables.</p>
-<p>Describe the probability distribution of the data: is it normal or some other distribution? Histograms and Q-Q plots can be helpful here.</p>
+<p>To better understand and visualise the data, I have plotted each of the variables in which I am interested in on Q-Q plots, histograms, and kernel density plots. These will allow me to identify whether the data is normally distributed or whether the data is at all skewed. Pairs plots have also been used to identify whether there is any relationship between variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># columns</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>elements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MgCa"</span>, <span class="st">"SrCa"</span>, <span class="st">"UCa"</span>, <span class="st">"AlCa"</span>, <span class="st">"BaCa"</span>, <span class="st">"PCa"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (element <span class="cf">in</span> elements) {</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qqnorm</span>(data[[element]], <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Q-Q Plot of"</span>, element))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qqline</span>(data[[element]], <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/qq-plots-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="comment">
+<p>Your code is fine. You can also do this with <code>ggplot2</code> like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r grade-src code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> <span class="fu">select</span>(Distance, MgCa, SrCa, UCa, AlCa, BaCa, PCa) <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Distance, <span class="at">names_to =</span> <span class="st">"Element"</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Value"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">sample =</span> Value)) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Element, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre class="grade-warn"><code>Warning: Removed 6193152 rows containing non-finite outside the scale range
+(`stat_qq_line()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre class="grade-warn"><code>Warning: Removed 6193152 rows containing non-finite outside the scale range
+(`stat_qq()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/qq-plots-jg-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pivot_longer</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>long_data <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(data, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">cols =</span> <span class="fu">c</span>(MgCa, SrCa, UCa, AlCa, BaCa, PCa),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">names_to =</span> <span class="st">"Element"</span>, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">values_to =</span> <span class="st">"Values"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># kernel density plots</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(long_data, <span class="fu">aes</span>(<span class="at">x =</span> Values, <span class="at">fill =</span> Element)) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Element, <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Kernel Density Plots of Elemental Ratios"</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"mmol/mol"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 6193152 rows containing non-finite outside the scale range
+(`stat_density()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/kd-plots-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="comment">
+<p>Good plot. This implements a lot of what I suggested above for the Q-Q plots.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pivot_longer</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>long_data <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(data, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">cols =</span> <span class="fu">c</span>(MgCa, SrCa, UCa, AlCa, BaCa, PCa),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">names_to =</span> <span class="st">"Element"</span>, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                          <span class="co"># values_to = "mmol/mol"</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">values_to =</span> <span class="st">"Value"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                          )</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># histogram plotting</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(long_data, <span class="fu">aes</span>(<span class="at">x =</span> Value, <span class="at">fill =</span> Element)) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Element, <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histograms of Elemental Ratios"</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Value"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 6193152 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/histograms-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="comment problem">
+<p>The code above throws an error because you call the column <code>mmol/mol</code> but try to plot it using the name <code>Value</code>, so I commented out a line of your code and replaced it with a correction.</p>
+</div>
+<div class="comment">
+<p>You don’t have to repeat defining <code>long_data</code>. R will remember that from one code block to another.</p>
+<p>Also, it can be useful to use <code>select()</code> to remove columns you’re not interessted in when you pivot, so you don’t create lots of duplicates of the variables like <code>X7Li</code>, <code>X24Mg</code>, <code>Mg.mol.L</code>, etc., if you’re not going to use those variables.</p>
+<p>Doing this will speed up the code, and reduce the amount of memory it needs.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"H2.5.csv"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#elements</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>elements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MgCa"</span>, <span class="st">"SrCa"</span>, <span class="st">"UCa"</span>, <span class="st">"AlCa"</span>, <span class="st">"BaCa"</span>, <span class="st">"PCa"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>subset_data <span class="ot">&lt;-</span> df[, elements]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#plot</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(subset_data,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">"Pairwise Scatterplots of Elemental Ratios"</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"steelblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="comment">
+<p>You’ve already read the data in as <code>data</code>, so you don’t need to read it again as <code>df</code>.</p>
+<p>Your code is fine. There’s nothing wrong. I’m just pointing out ways that you can make things more efficient for future work.</p>
+<p>Also, your <code>subset_data &lt;- df[, elements]</code> is fine, but you can also do this with the tidyverse by doing <code>subset_data &lt;- select(df, one_of(elements))</code>.</p>
+<p>There’s nothing wrong with the way you do it, but in general, there’s an advantage in knowing about <code>selecct()</code> because it has many powerful methods to select multiple columns, based on their names (<code>starts_with()</code>, <code>ends_with()</code>, <code>matchess()</code>, etc.), which can let you do other selections more simply than using the direct <code>[,]</code> indexing.</p>
+<p>I’m replacing your code with the following to make the document knit faster and save memory</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r grade-src code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> data</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#elements</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>elements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MgCa"</span>, <span class="st">"SrCa"</span>, <span class="st">"UCa"</span>, <span class="st">"AlCa"</span>, <span class="st">"BaCa"</span>, <span class="st">"PCa"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>subset_data <span class="ot">&lt;-</span> df[, elements]</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#plot</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(subset_data,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">"Pairwise Scatterplots of Elemental Ratios"</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"steelblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/pairs-plot-jg-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>From the descriptive statistics, we can see that none of the elements are normally distributed. The are all skewed at the upper and lower bounds. From the pairs plot, we can see that there are some positive linear relationships between variables. This information is useful for further investigation of the data and potential for regression analysis.</p>
+<p>To further visualise the data, I have log transformed the dataset to identify whether that transforms the data to something that appears to be normally distributed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># columns</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>elements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MgCa"</span>, <span class="st">"SrCa"</span>, <span class="st">"UCa"</span>, <span class="st">"AlCa"</span>, <span class="st">"BaCa"</span>, <span class="st">"PCa"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (element <span class="cf">in</span> elements) {</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove '0' and NaN</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">&lt;-</span> data[[element]]</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  log_values <span class="ot">&lt;-</span> <span class="fu">log10</span>(values[values <span class="sc">&gt;</span> <span class="dv">0</span>])</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># q-q plots log transformed</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qqnorm</span>(log_values, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Log10 Q-Q Plot of"</span>, element))</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">qqline</span>(log_values, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/qq-plots-log-xform-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>elements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MgCa"</span>, <span class="st">"SrCa"</span>, <span class="st">"UCa"</span>, <span class="st">"AlCa"</span>, <span class="st">"BaCa"</span>, <span class="st">"PCa"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#plot</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (element <span class="cf">in</span> elements) {</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">&lt;-</span> data[[element]]</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  log_values <span class="ot">&lt;-</span> <span class="fu">log10</span>(values[values <span class="sc">&gt;</span> <span class="dv">0</span>]) </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">density</span>(log_values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Log10 Density of"</span>, element),</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="fu">paste</span>(<span class="st">"log10("</span>, element, <span class="st">")"</span>, <span class="at">sep =</span> <span class="st">""</span>),</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Density"</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"darkgreen"</span>,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/kd-plots-log-xform-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#plot</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (element <span class="cf">in</span> elements) {</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">&lt;-</span> data[[element]]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  log_values <span class="ot">&lt;-</span> <span class="fu">log10</span>(values[values <span class="sc">&gt;</span> <span class="dv">0</span>]) </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hist</span>(log_values,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Log10 Histogram of"</span>, element),</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="fu">paste</span>(<span class="st">"log10("</span>, element, <span class="st">")"</span>, <span class="at">sep =</span> <span class="st">""</span>),</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"lightcoral"</span>,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">border =</span> <span class="st">"white"</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/hist-log-xform-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#element data</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>elements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MgCa"</span>, <span class="st">"SrCa"</span>, <span class="st">"UCa"</span>, <span class="st">"AlCa"</span>, <span class="st">"BaCa"</span>, <span class="st">"PCa"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>subset_data <span class="ot">&lt;-</span> df[, elements]</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>log_data <span class="ot">&lt;-</span> <span class="fu">log10</span>(subset_data)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>log_data <span class="ot">&lt;-</span> log_data[<span class="fu">apply</span>(log_data, <span class="dv">1</span>, <span class="cf">function</span>(row) <span class="fu">all</span>(<span class="fu">is.finite</span>(row))), ]</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#plot</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(log_data,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">"Pairwise Scatterplots of log10(Elemental Ratios)"</span>,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"darkred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/pairs-plot-log-xform-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>After the log transformation, we can see that the data looks closer to a normal distribution. However, it is still skewed, especially towards the higher values. We can determinet hat the data is not normally distributed, and while a log transform helps with reducing the outliers, they are still significant.</p>
+<div class="comment">
+<p>Good analysis of the descriptive statistics. The log transform was smart and I agree that it makes the data look a lot closer to normal, but that there are still noteworthy discrepancies.</p>
+<p>With your pairwise scatterplots, when you have a lot of data it can be helpful to use the <code>alpha</code> parameter in <code>pairs</code> to make it easier to see where the points are denser and less dense</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r grade-src code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(log_data,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">"Pairwise Scatterplots of log10(Elemental Ratios)"</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="fu">alpha</span>(<span class="st">"darkred"</span>, <span class="fl">0.01</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/pairs-plot-log-xform-jg-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>or</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r grade-src code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(log_data, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"points"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">alpha =</span> <span class="fl">0.01</span>)),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">"density"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">alpha =</span> <span class="fl">0.3</span>)),</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">progress =</span> <span class="cn">FALSE</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/alt-pairs-plot-log-xform-jg-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="research-questions" class="level2">
 <h2 class="anchored" data-anchor-id="research-questions">Research Questions</h2>
-<p>This is a place to describe the research questions you want to ask about your data.</p>
-<p>It’s helpful to use tables and/or graphs to illustrate what you’re thinking about and what questions you want to ask.</p>
+<p>How do geochemical proxies from a rapidly precipitating stalagmite from CuraC’ao reflect local climate and environmental change?</p>
+<p>Do we see a difference between rock and soil source and or interactions recorded in the stalagmite?</p>
+<p>Do these rapidly growing stalagmites from CuraC’ao demonstrate seasonality?</p>
+<p>Do we see any anomalous layers that have significantly increased or reduced TE concentrations?</p>
+<p>Can we make any predictions of what the future TE may have looked like?</p>
 </section>
 <section id="hypotheses-and-tests" class="level2">
 <h2 class="anchored" data-anchor-id="hypotheses-and-tests">Hypotheses and Tests</h2>
@@ -151,24 +487,494 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Put code to implement the analysis and hypothesis tests, and include interpretations of thee</p>
 <section id="hypotheses" class="level3">
 <h3 class="anchored" data-anchor-id="hypotheses">Hypotheses</h3>
-<p>State your hypothesis or hypotheses</p>
+<p>Below are some hypotheses in relation to my data and research questions.</p>
+<p>H1: Trace element ratios Al/Ca and P/Ca will be identifiable from a soil source, whereas Sr/Ca, Ba/Ca and U/Ca will be identifiable as from a rock source.</p>
+<p>H2: Fluctuations in the TE will be reflective of seasonal changes in the hydroclimate.</p>
+<p>H3: Darker layers will have increased TE concentrations compared to visually lighter layers.</p>
 </section>
 <section id="methods" class="level3">
 <h3 class="anchored" data-anchor-id="methods">Methods</h3>
-<p>Describe the methods you’ll use to analyze your data in preparation for testing hypotheses. Include the analysis code.</p>
+<p>To test my hypotheses, I will first start with a principal component analysis. This will allow me to determine whether the TE are from a rock source or soil derived. From the PCA, I will further identify any points of increased TE concentrations through the PCA and also through plotting of the data.</p>
+<p>I will then plot an ACF and PACF of each of the elements to determine the trend and which regression would be the best option for the data. I will then try out an AR, MA, ARMA and ARIMA model.</p>
 </section>
 <section id="hypothesis-tests" class="level3">
 <h3 class="anchored" data-anchor-id="hypothesis-tests">Hypothesis Tests</h3>
 <p>Details about the hypothesis tests, including code</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"H2.5.csv"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>elements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MgCa"</span>, <span class="st">"SrCa"</span>, <span class="st">"UCa"</span>, <span class="st">"AlCa"</span>, <span class="st">"BaCa"</span>, <span class="st">"PCa"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>log_data <span class="ot">&lt;-</span> <span class="fu">log10</span>(df[, elements])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="comment problem">
+<p>This part of your code is redundant. You’ve read the data and processed it to <code>log10(df[, elements])</code> earlier, so you don’t need to repeat.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data clean</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>log_data_clean <span class="ot">&lt;-</span> log_data[<span class="fu">complete.cases</span>(log_data) <span class="sc">&amp;</span> <span class="fu">apply</span>(log_data, <span class="dv">1</span>, <span class="cf">function</span>(row) <span class="fu">all</span>(<span class="fu">is.finite</span>(row))), ]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#pca</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>pca_result <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(log_data_clean, <span class="at">scale. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#1 vs2</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca_result,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">axes =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">"var"</span>,              </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.var =</span> <span class="st">"firebrick"</span>,     </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.ind =</span> <span class="st">"steelblue"</span>,   </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">title =</span> <span class="st">"PCA Biplot: PC1 vs PC2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/pca-analysis-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2 vs 3</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca_result,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">axes =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">"var"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.var =</span> <span class="st">"firebrick"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.ind =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">title =</span> <span class="st">"PCA Biplot: PC2 vs PC3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/pca-analysis-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1 vs 3</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca_result,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">axes =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">"var"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.var =</span> <span class="st">"firebrick"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.ind =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">title =</span> <span class="st">"PCA Biplot: PC1 vs PC3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/pca-analysis-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="comment">
+<p>It can be useful when you have so much data to use <code>alpha</code> in scatterplots.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r grade-src code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1 vs2</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca_result,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">axes =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">"var"</span>,              </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.var =</span> <span class="st">"firebrick"</span>,     </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.ind =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha.ind =</span> <span class="fl">0.2</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">title =</span> <span class="st">"PCA Biplot: PC1 vs PC2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/pca-analysis-jg-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r grade-src code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2 vs 3</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca_result,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">axes =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">"var"</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.var =</span> <span class="st">"firebrick"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.ind =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha.ind =</span> <span class="fl">0.2</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">title =</span> <span class="st">"PCA Biplot: PC2 vs PC3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/pca-analysis-jg-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r grade-src code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1 vs 3</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca_result,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">axes =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="st">"var"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.var =</span> <span class="st">"firebrick"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.ind =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">alpha.ind =</span> <span class="fl">0.2</span>,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">title =</span> <span class="st">"PCA Biplot: PC1 vs PC3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/pca-analysis-jg-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It’s also useful to make a scree plot for a PC analysis to see how much of the total variance is explained by each component.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r grade-src code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">sd =</span> pca_result<span class="sc">$</span>sdev, <span class="at">i =</span> <span class="fu">seq_along</span>(sd),</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">var =</span> sd<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="fu">sum</span>(sd<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">ordered</span>(i), <span class="at">y =</span> var)) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">label_percent</span>(<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"PC"</span>, <span class="at">y =</span> <span class="st">"% Variance Explained"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (element <span class="cf">in</span> elements) {</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> df[[element]]</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>   data <span class="ot">&lt;-</span> <span class="fu">log</span>(data)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#remove NA</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#plot ACF and PACF</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) </span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">acf</span>(data, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"ACF of"</span>, element))</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pacf</span>(data, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"PACF of"</span>, element))</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-2-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-2-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>elements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MgCa"</span>, <span class="st">"SrCa"</span>, <span class="st">"UCa"</span>, <span class="st">"AlCa"</span>, <span class="st">"BaCa"</span>, <span class="st">"PCa"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>model_aics <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Element =</span> elements, <span class="at">ARIMA =</span> <span class="cn">NA</span>, <span class="at">AR =</span> <span class="cn">NA</span>, <span class="at">MA =</span> <span class="cn">NA</span>, <span class="at">ARMA =</span> <span class="cn">NA</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>model_rmse <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Element =</span> elements, <span class="at">ARIMA =</span> <span class="cn">NA</span>, <span class="at">AR =</span> <span class="cn">NA</span>, <span class="at">MA =</span> <span class="cn">NA</span>, <span class="at">ARMA =</span> <span class="cn">NA</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">#make loop</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(elements)) {</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  element <span class="ot">&lt;-</span> elements[i]</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> df[[element]]</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  x_clean <span class="ot">&lt;-</span> x[<span class="sc">!</span><span class="fu">is.na</span>(x)]</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  x_diff <span class="ot">&lt;-</span> <span class="fu">diff</span>(x_clean)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">#acf and pacf plots</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">acf</span>(x_diff, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"ACF of Differenced"</span>, element))</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pacf</span>(x_diff, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"PACF of Differenced"</span>, element))</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">#fit ARIMA(1,1,1)</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>  model_arima <span class="ot">&lt;-</span> <span class="fu">arima</span>(x_clean, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#fit AR(1)</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>  model_ar <span class="ot">&lt;-</span> <span class="fu">arima</span>(x_clean, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">#fit MA(1)</span></span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>  model_ma <span class="ot">&lt;-</span> <span class="fu">arima</span>(x_clean, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>  <span class="co">#fit ARMA(1,1)</span></span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>  model_arma <span class="ot">&lt;-</span> <span class="fu">arima</span>(x_clean, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>  <span class="co">#get rmse</span></span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>  rmse_arima <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((<span class="fu">residuals</span>(model_arima))<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>  rmse_ar <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((<span class="fu">residuals</span>(model_ar))<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>  rmse_ma <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((<span class="fu">residuals</span>(model_ma))<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>  rmse_arma <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((<span class="fu">residuals</span>(model_arma))<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a>  model_aics<span class="sc">$</span>ARIMA[i] <span class="ot">&lt;-</span> <span class="fu">AIC</span>(model_arima)</span>
+<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a>  model_aics<span class="sc">$</span>AR[i] <span class="ot">&lt;-</span> <span class="fu">AIC</span>(model_ar)</span>
+<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a>  model_aics<span class="sc">$</span>MA[i] <span class="ot">&lt;-</span> <span class="fu">AIC</span>(model_ma)</span>
+<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>  model_aics<span class="sc">$</span>ARMA[i] <span class="ot">&lt;-</span> <span class="fu">AIC</span>(model_arma)</span>
+<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a>  model_rmse<span class="sc">$</span>ARIMA[i] <span class="ot">&lt;-</span> rmse_arima</span>
+<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a>  model_rmse<span class="sc">$</span>AR[i] <span class="ot">&lt;-</span> rmse_ar</span>
+<span id="cb30-45"><a href="#cb30-45" aria-hidden="true" tabindex="-1"></a>  model_rmse<span class="sc">$</span>MA[i] <span class="ot">&lt;-</span> rmse_ma</span>
+<span id="cb30-46"><a href="#cb30-46" aria-hidden="true" tabindex="-1"></a>  model_rmse<span class="sc">$</span>ARMA[i] <span class="ot">&lt;-</span> rmse_arma</span>
+<span id="cb30-47"><a href="#cb30-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-48"><a href="#cb30-48" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print things</span></span>
+<span id="cb30-49"><a href="#cb30-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">---"</span>, element, <span class="st">"---</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb30-50"><a href="#cb30-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"ARIMA(1,1,1) AIC:"</span>, <span class="fu">AIC</span>(model_arima), <span class="st">" RMSE:"</span>, rmse_arima, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb30-51"><a href="#cb30-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"AR(1)        AIC:"</span>, <span class="fu">AIC</span>(model_ar), <span class="st">" RMSE:"</span>, rmse_ar, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb30-52"><a href="#cb30-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"MA(1)        AIC:"</span>, <span class="fu">AIC</span>(model_ma), <span class="st">" RMSE:"</span>, rmse_ma, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb30-53"><a href="#cb30-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"ARMA(1,1)    AIC:"</span>, <span class="fu">AIC</span>(model_arma), <span class="st">" RMSE:"</span>, rmse_arma, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb30-54"><a href="#cb30-54" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- MgCa ---
+ARIMA(1,1,1) AIC: 13161  RMSE: 1.308243 
+AR(1)        AIC: 13750  RMSE: 1.410532 
+MA(1)        AIC: 14403.3  RMSE: 1.533875 
+ARMA(1,1)    AIC: 13065.35  RMSE: 1.291537 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- SrCa ---
+ARIMA(1,1,1) AIC: -14259.28  RMSE: 0.03879446 
+AR(1)        AIC: -13484.15  RMSE: 0.04287887 
+MA(1)        AIC: -12926.5  RMSE: 0.04605956 
+ARMA(1,1)    AIC: -14317.84  RMSE: 0.0385171 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- UCa ---
+ARIMA(1,1,1) AIC: -70513.42  RMSE: 2.846045e-05 
+AR(1)        AIC: -70289.95  RMSE: 2.93551e-05 
+MA(1)        AIC: -67301.93  RMSE: 4.307151e-05 
+ARMA(1,1)    AIC: -70607.46  RMSE: 2.817573e-05 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- AlCa ---
+ARIMA(1,1,1) AIC: 9730.837  RMSE: 0.8425385 
+AR(1)        AIC: 9611.332  RMSE: 0.829372 
+MA(1)        AIC: 12783.62  RMSE: 1.245901 
+ARMA(1,1)    AIC: 9612.829  RMSE: 0.8293179 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-3-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- BaCa ---
+ARIMA(1,1,1) AIC: -41065.85  RMSE: 0.001244461 
+AR(1)        AIC: -41077.81  RMSE: 0.001244519 
+MA(1)        AIC: -37992.36  RMSE: 0.001848975 
+ARMA(1,1)    AIC: -41089.43  RMSE: 0.001242343 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-3-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- PCa ---
+ARIMA(1,1,1) AIC: 12968.09  RMSE: 1.276366 
+AR(1)        AIC: 12899.28  RMSE: 1.264434 
+MA(1)        AIC: 17510.04  RMSE: 2.284636 
+ARMA(1,1)    AIC: 12834.57  RMSE: 1.253655 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model_aics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Element      ARIMA         AR        MA       ARMA
+1    MgCa  13161.000  13750.002  14403.30  13065.354
+2    SrCa -14259.280 -13484.151 -12926.50 -14317.843
+3     UCa -70513.423 -70289.952 -67301.93 -70607.457
+4    AlCa   9730.837   9611.332  12783.62   9612.829
+5    BaCa -41065.847 -41077.806 -37992.36 -41089.434
+6     PCa  12968.086  12899.281  17510.04  12834.569</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model_rmse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Element        ARIMA           AR           MA         ARMA
+1    MgCa 1.308243e+00 1.4105324624 1.533875e+00 1.291537e+00
+2    SrCa 3.879446e-02 0.0428788733 4.605956e-02 3.851710e-02
+3     UCa 2.846045e-05 0.0000293551 4.307151e-05 2.817573e-05
+4    AlCa 8.425385e-01 0.8293719867 1.245901e+00 8.293179e-01
+5    BaCa 1.244461e-03 0.0012445195 1.848975e-03 1.242343e-03
+6     PCa 1.276366e+00 1.2644335562 2.284636e+00 1.253655e+00</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pracma)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>elements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MgCa"</span>, <span class="st">"SrCa"</span>, <span class="st">"UCa"</span>, <span class="st">"AlCa"</span>, <span class="st">"BaCa"</span>, <span class="st">"PCa"</span>)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>thresholds <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.7</span>, <span class="fl">0.1</span>, <span class="fl">0.00005</span>, <span class="fl">0.15</span>, <span class="fl">0.001</span>, <span class="fl">0.3</span>)  </span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="co">#loop</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(elements)) {</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  element <span class="ot">&lt;-</span> elements[i]</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  threshold <span class="ot">&lt;-</span> thresholds[i]  </span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  df_element <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Distance, <span class="fu">all_of</span>(element)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(.data[[element]])) <span class="sc">%&gt;%</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(Distance)</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  df_element<span class="sc">$</span>Distance <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df_element<span class="sc">$</span>Distance)</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>  peaks <span class="ot">&lt;-</span> <span class="fu">findpeaks</span>(df_element[[element]], <span class="at">threshold =</span> threshold)  </span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>  peak_count <span class="ot">&lt;-</span> <span class="fu">nrow</span>(peaks)</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_element, <span class="fu">aes</span>(<span class="at">x =</span> Distance, <span class="at">y =</span> .data[[element]])) <span class="sc">+</span></span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> df_element[peaks[, <span class="dv">2</span>] <span class="sc">==</span> <span class="dv">1</span>, ], <span class="fu">aes</span>(<span class="at">x =</span> Distance, <span class="at">y =</span> .data[[element]]), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span>  <span class="co"># Mark peaks in red</span></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(element, <span class="st">"against Depth (Distance)"</span>),</span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">"Distance (mm)"</span>, <span class="at">y =</span> <span class="fu">paste</span>(element, <span class="st">"Ratio"</span>)) <span class="sc">+</span></span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fu">max</span>(<span class="fu">as.numeric</span>(df_element<span class="sc">$</span>Distance)) <span class="sc">*</span> <span class="fl">0.8</span>, <span class="at">y =</span> <span class="fu">max</span>(df_element[[element]]) <span class="sc">*</span> <span class="fl">0.9</span>,</span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>             <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Peak Count:"</span>, peak_count), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(p)</span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-4-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-4-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="semester-project_files/figure-html/unnamed-chunk-4-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="results-and-discussion" class="level3">
 <h3 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h3>
-<p>Results from your hypothesis tests and discussion, interpreting your results</p>
+<p>From the PCA analysis of the TE data, we can see that dimension 1/PC 1 accounts for 49.3%. Each element is in the positive side. Each of the elements are dominated by the large spread of the data across dimension 1. The points that above 5 in the PCA are points that correlate to the labeled darker layers on the inset of fig.&nbsp;1. These are dominating the data, and overshadowing any subtler variations in the TE data. I therefore move to look at PC 2 vs.&nbsp;PC3. PC 2 accounts for 20.4% of the variation, and PC 3 accounts for 13.5%. Here we can see that the large outliers have mostly been ‘hidden’, allowing for the more subtle variations between the TE to show. We can see that Al/Ca and P/Ca are both clustered in the same quadrant, and U/Ca, Ba/Ca and Sr/Ca are also clustered together. From this, we can determine that Al/Ca and P/Ca are likely from a soil source. These layers with the increased TE data generally have a significant visual difference, and are substantially darker. This darker material is likely organic rich. This layer of organic material may represent a slow in the drip and therefore growth of the stalagmite, allowing for organic material, potentially black algae, to grow over the surface of the stalagmite. We see this layering through a lot of the stalagmite until the top 15 mm. The reason behind the cease of organic matter growth is unknown, and an area of study as to why it has changed. Additionally, not every dark layer within the stalagmite has increased TE concentrations. Further information on the crystalline structure of the stalagmite and ages is needed to better understand the visual and chemical changes.</p>
+<div class="comment">
+<p>Good discussion. How do you interpret the significance that almost half the total variance can be explained by a single PC?</p>
+<p>It’s not clear what your reasoning is that associates AL and P with soil.</p>
+<p>The discussion of the relationship with the dark layers is very interesting and thoughtful, but it’s not clear from the data you present here how you know that the dark layers are associated with highter TE. It would be good to explain more clearly, and possibly show some graphs from your data here.</p>
+<p>There might be value to plot PC1, PC2, and PC3 versus distance in the stalagmite.</p>
+<p>The scree plot I suggessted above helps illustrate what you say here, about the amount of variance explained by each PC.</p>
+</div>
+<p>I then moved to looking at regression models. To determine which model would be the best to use, I investigated an AR, MA, ARMA and ARIMA model. From the AIC and RMSE values, I concluded that the ARMA model would be the best overall option for the elements. While the AIC for AR for Al/Ca is slightly lower, the RMSE for ARMA is lower. As the ARMA model is the better fit for the other elements, I decided to move forward with the ARMA model. However, due to the lack of ages associated with the data at the current point in the research, and irregular spacing between each data point, there were difficulties in running the ARMA model to predict future changes in the stalagmite TE data concentrations. Also, considering the unknown impacts and causes of the visual layering and the increased concentrations on some layers, it could be difficult to predict these. Additional understanding of the mechanisms that create the variations in the stalagmite laminae is required.</p>
+<div class="comment">
+<p>In your ACF/PACF plots, it looks like there might be good reasons to use an ARIMA model even though ARMA has slightly lower RMSE and AIC. The ACF/PACF plots show that for MgCa, SrCA, and UCa, the ACF does not quickly diminish, whereas with the differenced data, PACF quickly falls off and ACF has two significant lags, so an ARIMA(0, 1, 2) model might be useful for these trace elements, based on the Box-Jenkins method.</p>
+</div>
+<p>Peak counting was used for each of the elements to determine whether the laminae in the stalagmite may be seasonal variation, and therefore representative for seasonal fluctuations in the hydroclimate. However, as the data includes a lot of noise, and a lack of dates to determine how many of the peaks occur during a single year, the identification of seasonal hydroclimate controls are still unknown for the tropical stalagmite.</p>
+<div class="comment">
+<p>Good to test for these things. You are very thorough.</p>
+</div>
 </section>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>What did you learn? What results would a reader be interested in? What would be the next steps if you were to continue studying this data after the end of the semester?</p>
+<p>From analysing the data, I found that none of the elements after being normalised to Ca and log transformed are normally distributed. While the log transform shifts many of the elements closer to a normal distribution, there are still skewed. This skew likely originates from the large peaks in the data that we see when we plot the TE against depth. These peaks correlate to significantly visually darker layers in the stalagmite, potentially corresponding to increased organic matter. While these peaks also dominate the PCA, when considering PC3, we can see more subtle variations, where the host rock vs.&nbsp;soil influences can be pulled apart. Due to the limited dating ability and few ages that we have for the stalagmite at the current research point, it is difficult to identify whether the fluctuations in the TE are seasonally related. Peak counting of the trace element data was an initial step to identify whether each TE demonstrated a similar constant cyclicity. However, it is unclear whether are are all under the same seasonal cycle, and how the varying organic matter present within the stalagmite impacts the inclusion of TE. Further work would be to identify layers within the stalagmite of elements using a scanning-XRF. This would allow for accurate counting and identification of seasonality, or confirmation of a different control potentially ENSO related cycle. This would allow for further investigation into the hydroclimate of the stalagmite.</p>
+<p>Next steps to further investigate the data, would involve an effective and reliable age dataset to better understand the stalagmite and the environment in which it grew. The sample that the TE data has been taken on here is a suitable candidate for radiocarbon dating due to its young age and little to no dead carbon. This would be integrated into the bayesian age model (IBIS) that is currently being developed to inform ages for stalagmites that have high initial and variable Th in their composition. Additionally, isotope data will be collected for the rest of the stalagmite and at a higher resolution to better understand hydroclimate variability recorded in the oxygen isotopes.</p>
+<div class="comment">
+<p>This is a very thorough analysis of a complex data set. I was very impressed with the</p>
+</div>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references"><strong>References</strong></h2>
+<ol type="1">
+<li><p>Hua Q, McDonald J, Redwood D, Drysdale R, Lee S, Fallon S, et al.&nbsp;Robust chronological reconstruction for young speleothems using radiocarbon. Quaternary Geochronology. 2012 Dec;14:67–80.</p></li>
+<li><p>Faraji M, Borsato A, Frisia S, Hellstrom JC, Lorrey A, Hartland A, et al.&nbsp;Accurate dating of stalagmites from low seasonal contrast tropical Pacific climate using Sr 2D maps, fabrics and annual hydrological cycles. Sci Rep.&nbsp;2021 Jan 26;11(1):2178.</p></li>
+<li><p>Pomares-Meza GM, Camargo Caicedo Y, Viléz-Pereira AM. Long-Term Spatiotemporal Analysis of Precipitation Trends with Implications of ENSO-Driven Variability in the Department of Magdalena, Colombia. Water. 2024 Nov 23;16(23):3372.</p></li>
+<li><p>Rise N, Oura C, Drewry J. Climate change and health in the Caribbean: A review highlighting research gaps and priorities. The Journal of Climate Change and Health. 2022 Oct;8:100126.</p></li>
+</ol>
 </section>
 
 </main>
