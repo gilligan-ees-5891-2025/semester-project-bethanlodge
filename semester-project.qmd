@@ -5,17 +5,13 @@ author: "Put your name here"
 date: last-modified
 ---
 
-
-::: {.comment}
+::: comment
 My comments will appear in colored boxes like this.
 :::
 
-
 ::: {.comment .problem}
-You forgot to give your project a title and put your name as the 
-author.
+You forgot to give your project a title and put your name as the author.
 :::
-
 
 ## Setup
 
@@ -40,6 +36,7 @@ library(forecast)
 # set up default plotting format for ggplot2 graphs
 theme_set(theme_bw())
 ```
+
 ```{r chunk-options, echo=FALSE, results="hide"}
 options(cache.lazy = FALSE)
 ```
@@ -50,15 +47,13 @@ Write the introduction: describe what data you're going to study, why you're
 interested in it, where you obtained the data, and any other relevant
 background.
 
+::: comment
+Think about this as a report to be read. My intention was for you to replace my
+prompts with your text.
 
-::: {.comment}
-Think about this as a report to be read. My intention was for you to
-replace my prompts with your text.
-
-I'm not taking any points off for this, but keep in mind to think about
-a quarto document as a real report for someone to read.
+I'm not taking any points off for this, but keep in mind to think about a
+quarto document as a real report for someone to read.
 :::
-
 
 Secondary cave minerals such as stalagmites host geochemical data that can
 record regional climate variability and have provided essential information on
@@ -94,13 +89,11 @@ tropical stalagmite records \[7\]. Further, trace element (TE) data
 demonstrates regular fluctuations in Sr/Ca, U/Ca, and Mg/Ca. These fluctuations
 may record seasonal or inter-annual variations above the cave.
 
-
-::: {.comment}
-This is a very nice introduction that explains what data you will be 
-analyzing, why it's interesting and scientifically important and why
-Cura&ccedil;ao is particularly interesting.
+::: comment
+This is a very nice introduction that explains what data you will be analyzing,
+why it's interesting and scientifically important and why Cura??ao is
+particularly interesting.
 :::
-
 
 ### Data set
 
@@ -117,27 +110,23 @@ against, due to the many difficulties in attempting to date topical
 stalagmites, we do not have an age model for the stalagmite that we are
 confident has produced reliable ages for the full length of the stalagmite.
 
-
-::: {.comment}
-Good description of the specific trace-element measurements you
-will be looking at, and the stalagmite the observations come from.
+::: comment
+Good description of the specific trace-element measurements you will be looking
+at, and the stalagmite the observations come from.
 :::
-
 
 ```{r read-data, eval=FALSE}
 data <- read.csv("H2.5.csv")
 ```
 
-
-::: {.comment}
+::: comment
 The data gets kind of messy because the CSV file has several different
-sections, with different headers (rows 1, 16385, 32769, etc.) 
-It would be useful to split it into
-multiple files, each containing the different data, and read these
-in as separate data frames.
+sections, with different headers (rows 1, 16385, 32769, etc.) It would be
+useful to split it into multiple files, each containing the different data, and
+read these in as separate data frames.
 
-I'm replacing your code with the following, which produces a much
-smaller data frame:
+I'm replacing your code with the following, which produces a much smaller data
+frame:
 
 ```{r read-data-jg}
 #| class.source:  "grade-src"
@@ -149,7 +138,6 @@ data <- read.csv("H2.5.csv") |>
   filter(! is.na(Distance))
 ```
 :::
-
 
 ```{r data-figure}
 knitr::include_graphics("TE_data_with_inset.png")
@@ -166,11 +154,9 @@ stalagmite.
 
 ::: comment
 What you did here is fine, but you can also include a graphic file into a
-Quarto document without needing to use R code 
-by using the "Insert" menu and choosing "Figure/Image"
-if you're in the Visual editor mode, or by putting
-`![alternate text](TE_data_with_inset.png)`
-if you're editing in Source mode.
+Quarto document without needing to use R code by using the "Insert" menu and
+choosing "Figure/Image" if you're in the Visual editor mode, or by putting
+`![alternate text](TE_data_with_inset.png)` if you're editing in Source mode.
 :::
 
 ## Descriptive Statistics
@@ -194,10 +180,8 @@ for (element in elements) {
 }
 ```
 
-
-::: {.comment}
+::: comment
 Your code is fine. You can also do this with `ggplot2` like this:
-
 
 ```{r qq-plots-jg}
 #| class.source:  "grade-src"
@@ -213,9 +197,7 @@ data |> select(Distance, MgCa, SrCa, UCa, AlCa, BaCa, PCa) |>
   geom_qq() +
   facet_wrap(~Element, ncol = 3, scales = "free")
 ```
-
 :::
-
 
 ```{r kd-plots}
 # pivot_longer
@@ -233,12 +215,9 @@ ggplot(long_data, aes(x = Values, fill = Element)) +
        x = "mmol/mol", y = "Density")
 ```
 
-
-::: {.comment}
-Good plot. This implements a lot of what I suggested above for the 
-Q-Q plots.
+::: comment
+Good plot. This implements a lot of what I suggested above for the Q-Q plots.
 :::
-
 
 ```{r histograms}
 
@@ -260,26 +239,22 @@ ggplot(long_data, aes(x = Value, fill = Element)) +
 ```
 
 ::: {.comment .problem}
-The code above throws an error because you call the column `mmol/mol`
-but try to plot it using the name `Value`, so I commented out a line
-of your code and replaced it with a correction.
+The code above throws an error because you call the column `mmol/mol` but try
+to plot it using the name `Value`, so I commented out a line of your code and
+replaced it with a correction.
 :::
 
-
-
-::: {.comment}
-You don't have to repeat defining `long_data`. R will remember that from
-one code block to another.
+::: comment
+You don't have to repeat defining `long_data`. R will remember that from one
+code block to another.
 
 Also, it can be useful to use `select()` to remove columns you're not
-interessted in when you pivot, so you don't create lots of 
-duplicates of the variables like `X7Li`, `X24Mg`, `Mg.mol.L`, etc.,
-if you're not going to use those variables.
+interessted in when you pivot, so you don't create lots of duplicates of the
+variables like `X7Li`, `X24Mg`, `Mg.mol.L`, etc., if you're not going to use
+those variables.
 
-Doing this will speed up the code, and reduce the amount of memory
-it needs.
+Doing this will speed up the code, and reduce the amount of memory it needs.
 :::
-
 
 ```{r pairs-plot, eval=FALSE}
 df <- read.csv("H2.5.csv")
@@ -296,27 +271,24 @@ pairs(subset_data,
       col = "steelblue")
 ```
 
+::: comment
+You've already read the data in as `data`, so you don't need to read it again
+as `df`.
 
-::: {.comment}
-You've already read the data in as `data`, so you don't need to read
-it again as `df`. 
+Your code is fine. There's nothing wrong. I'm just pointing out ways that you
+can make things more efficient for future work.
 
-Your code is fine. There's nothing wrong. I'm just pointing out ways
-that you can make things more efficient for future work.
+Also, your `subset_data <- df[, elements]` is fine, but you can also do this
+with the tidyverse by doing `subset_data <- select(df, one_of(elements))`.
 
-Also, your `subset_data <- df[, elements]` is fine, but you can
-also do this with the tidyverse by doing
-`subset_data <- select(df, one_of(elements))`.
+There's nothing wrong with the way you do it, but in general, there's an
+advantage in knowing about `selecct()` because it has many powerful methods to
+select multiple columns, based on their names (`starts_with()`, `ends_with()`,
+`matchess()`, etc.), which can let you do other selections more simply than
+using the direct `[,]` indexing.
 
-There's nothing wrong with the way you do it, but in general, there's
-an advantage in knowing about `selecct()` because it has many powerful 
-methods to select multiple columns, based on their names
-(`starts_with()`, `ends_with()`, `matchess()`, etc.), which can 
-let you do other selections more simply than using the direct `[,]`
-indexing.
-
-I'm replacing your code with the following to make the document knit
-faster and save memory
+I'm replacing your code with the following to make the document knit faster and
+save memory
 
 ```{r pairs-plot-jg}
 #| class.source:  "grade-src"
@@ -337,7 +309,6 @@ pairs(subset_data,
       pch = 19,
       col = "steelblue")
 ```
-
 :::
 
 From the descriptive statistics, we can see that none of the elements are
@@ -424,16 +395,14 @@ distribution. However, it is still skewed, especially towards the higher
 values. We can determinet hat the data is not normally distributed, and while a
 log transform helps with reducing the outliers, they are still significant.
 
+::: comment
+Good analysis of the descriptive statistics. The log transform was smart and I
+agree that it makes the data look a lot closer to normal, but that there are
+still noteworthy discrepancies.
 
-::: {.comment}
-Good analysis of the descriptive statistics. The log transform was smart
-and I agree that it makes the data look a lot closer to normal, but that
-there are still noteworthy discrepancies.
-
-With your pairwise scatterplots, when you have a lot of data it can 
-be helpful to use the `alpha` parameter in `pairs` to make it easier to 
-see where the points are denser and less dense
-
+With your pairwise scatterplots, when you have a lot of data it can be helpful
+to use the `alpha` parameter in `pairs` to make it easier to see where the
+points are denser and less dense
 
 ```{r pairs-plot-log-xform-jg}
 #| class.source:  "grade-src"
@@ -447,6 +416,7 @@ pairs(log_data,
       col = alpha("darkred", 0.01)
 )
 ```
+
 or
 
 ```{r alt-pairs-plot-log-xform-jg}
@@ -466,7 +436,6 @@ ggpairs(log_data,
 )
 ```
 :::
-
 
 ## Research Questions
 
@@ -527,12 +496,10 @@ elements <- c("MgCa", "SrCa", "UCa", "AlCa", "BaCa", "PCa")
 log_data <- log10(df[, elements])
 ```
 
-
 ::: {.comment .problem}
-This part of your code is redundant. You've read the data and processed
-it to `log10(df[, elements])` earlier, so you don't need to repeat.
+This part of your code is redundant. You've read the data and processed it to
+`log10(df[, elements])` earlier, so you don't need to repeat.
 :::
-
 
 ```{r pca-analysis}
 #data clean
@@ -570,10 +537,8 @@ fviz_pca_biplot(pca_result,
 
 ```
 
-
-::: {.comment}
+::: comment
 It can be useful when you have so much data to use `alpha` in scatterplots.
-
 
 ```{r pca-analysis-jg}
 #| class.source:  "grade-src"
@@ -612,9 +577,8 @@ fviz_pca_biplot(pca_result,
                 title = "PCA Biplot: PC1 vs PC3")
 ```
 
-It's also useful to make a scree plot for a PC analysis to see how much
-of the total variance is explained by each component.
-
+It's also useful to make a scree plot for a PC analysis to see how much of the
+total variance is explained by each component.
 
 ```{r }
 #| class.source:  "grade-src"
@@ -629,9 +593,7 @@ tibble(sd = pca_result$sdev, i = seq_along(sd),
   scale_y_continuous(labels = label_percent(1)) +
   labs(x = "PC", y = "% Variance Explained")
 ```
-
 :::
-
 
 ```{r}
 library(forecast)
@@ -778,24 +740,23 @@ stalagmite has increased TE concentrations. Further information on the
 crystalline structure of the stalagmite and ages is needed to better understand
 the visual and chemical changes.
 
-
-::: {.comment}
-Good discussion. How do you interpret the significance that almost half
-the total variance can be explained by a single PC?
+::: comment
+Good discussion. How do you interpret the significance that almost half the
+total variance can be explained by a single PC?
 
 It's not clear what your reasoning is that associates AL and P with soil.
 
-The discussion of the relationship with the dark layers is very interesting
-and thoughtful, but it's not clear from the data you present here how you
-know that the dark layers are associated with highter TE. It would be
-good to explain more clearly, and possibly show some graphs from your data here.
+The discussion of the relationship with the dark layers is very interesting and
+thoughtful, but it's not clear from the data you present here how you know that
+the dark layers are associated with highter TE. It would be good to explain
+more clearly, and possibly show some graphs from your data here.
 
-There might be value to plot PC1, PC2, and PC3 versus distance in the stalagmite.
+There might be value to plot PC1, PC2, and PC3 versus distance in the
+stalagmite.
 
-The scree plot I suggessted above helps illustrate what you say
-here, about the amount of variance explained by each PC.
+The scree plot I suggessted above helps illustrate what you say here, about the
+amount of variance explained by each PC.
 :::
-
 
 I then moved to looking at regression models. To determine which model would be
 the best to use, I investigated an AR, MA, ARMA and ARIMA model. From the AIC
@@ -811,17 +772,14 @@ layering and the increased concentrations on some layers, it could be difficult
 to predict these. Additional understanding of the mechanisms that create the
 variations in the stalagmite laminae is required.
 
-
-::: {.comment}
-In your ACF/PACF plots, it looks like there might be good reasons to 
-use an ARIMA model even though ARMA has slightly lower RMSE and AIC.
-The ACF/PACF plots show that for MgCa, SrCA, and UCa, the ACF does not
-quickly diminish, whereas with the differenced data,
-PACF quickly falls off and ACF has two significant lags, so an 
-ARIMA(0, 1, 2) model might be useful for these trace elements, 
-based on the Box-Jenkins method.
+::: comment
+In your ACF/PACF plots, it looks like there might be good reasons to use an
+ARIMA model even though ARMA has slightly lower RMSE and AIC. The ACF/PACF
+plots show that for MgCa, SrCA, and UCa, the ACF does not quickly diminish,
+whereas with the differenced data, PACF quickly falls off and ACF has two
+significant lags, so an ARIMA(0, 1, 2) model might be useful for these trace
+elements, based on the Box-Jenkins method.
 :::
-
 
 Peak counting was used for each of the elements to determine whether the
 laminae in the stalagmite may be seasonal variation, and therefore
@@ -830,11 +788,9 @@ data includes a lot of noise, and a lack of dates to determine how many of the
 peaks occur during a single year, the identification of seasonal hydroclimate
 controls are still unknown for the tropical stalagmite.
 
-
-::: {.comment}
+::: comment
 Good to test for these things. You are very thorough.
 :::
-
 
 ## Conclusions
 
@@ -869,57 +825,65 @@ and variable Th in their composition. Additionally, isotope data will be
 collected for the rest of the stalagmite and at a higher resolution to better
 understand hydroclimate variability recorded in the oxygen isotopes.
 
+::: comment
+This is a very thorough analysis of a complex data set. I was very impressed
+with the way you organized and conducted your analysis, from descriptive
+statistics to developing research questions to using principal-component and
+regression analysis to study your data.
 
-::: {.comment}
-This is a very thorough analysis of a complex data set. I was very 
-impressed with the way you organized and conducted your analysis, 
-from descriptive statistics to developing research questions to 
-using principal-component and regression analysis to study your data.
+I point out in my comments in a few places where you might have used different
+approaches in your R code. These are not faults in your analysis, but just to
+inform you of options so you will have a richer set of tools for your future
+analyses.
 
-I point out in my comments in a few places where you might have 
-used different approaches in your R code. These are not faults in your
-analysis, but just to inform you of options so you will have a richer
-set of tools for your future analyses. 
+A few things that can be important: The big `H2.5.csv` file contains many data
+sets, not just the one you're using. More careful code to read it in would
+result in a smaller in-memory data set and faster code.
 
-A few things that can be important: The big `H2.5.csv` file contains
-many data sets, not just the one you're using. More careful code to
-read it in would result in a smaller in-memory data set and faster
-code.  
-
-Exacerbating this, your code read the same file in 3 different times,
-and repeated a lot of the analysis. Just reading it in one time, 
-and eliminating redundant analysis steps would speed up your code and
-also make it easier to maintain.
+Exacerbating this, your code read the same file in 3 different times, and
+repeated a lot of the analysis. Just reading it in one time, and eliminating
+redundant analysis steps would speed up your code and also make it easier to
+maintain.
 
 And moving on to more substantive critical comments about your analysis:
 
-With the principal components, you made a good start, but there's more
-you could have done. In particular, one big advantage of PCA is that it
-reduces the dimensionality of multivariate data sets, and you could
-have done time-series regressions against the first two principal 
-components instead of regressing against all six trace elements.
+With the principal components, you made a good start, but there's more you
+could have done. In particular, one big advantage of PCA is that it reduces the
+dimensionality of multivariate data sets, and you could have done time-series
+regressions against the first two principal components instead of regressing
+against all six trace elements.
 
-All in all, this was a very nice start at analyzing your data. You
-used many different techniques, and you were clearly thinking 
-critically about what you learned from the different techniques and 
-about which techniques were applicable to your data.
+All in all, this was a very nice start at analyzing your data. You used many
+different techniques, and you were clearly thinking critically about what you
+learned from the different techniques and about which techniques were
+applicable to your data.
 
-You kept your focus appropriately on how the statistical analysis connects
-to informing you about the processes that produced your data.
+You kept your focus appropriately on how the statistical analysis connects to
+informing you about the processes that produced your data.
 
-This is a nice exercise in applying many of the statistical methods
-we learned during the term, and I hope it will be something you can 
-build upon for your future work.
+This is a nice exercise in applying many of the statistical methods we learned
+during the term, and I hope it will be something you can build upon for your
+future work.
 
 **Grade:** $A-$
 :::
 
 ## **References**
 
-1. Hua Q, McDonald J, Redwood D, Drysdale R, Lee S, Fallon S, et al. Robust chronological reconstruction for young speleothems using radiocarbon. Quaternary Geochronology. 2012 Dec;14:67--80.
+1.  Hua Q, McDonald J, Redwood D, Drysdale R, Lee S, Fallon S, et al. Robust
+    chronological reconstruction for young speleothems using radiocarbon.
+    Quaternary Geochronology. 2012 Dec;14:67--80.
 
-2. Faraji M, Borsato A, Frisia S, Hellstrom JC, Lorrey A, Hartland A, et al. Accurate dating of stalagmites from low seasonal contrast tropical Pacific climate using Sr 2D maps, fabrics and annual hydrological cycles. Sci Rep. 2021 Jan 26;11(1):2178.
+2.  Faraji M, Borsato A, Frisia S, Hellstrom JC, Lorrey A, Hartland A, et al.
+    Accurate dating of stalagmites from low seasonal contrast tropical Pacific
+    climate using Sr 2D maps, fabrics and annual hydrological cycles. Sci Rep.
+    2021 Jan 26;11(1):2178.
 
-3. Pomares-Meza GM, Camargo Caicedo Y, Vil&eacute;z-Pereira AM. Long-Term Spatiotemporal Analysis of Precipitation Trends with Implications of ENSO-Driven Variability in the Department of Magdalena, Colombia. Water. 2024 Nov 23;16(23):3372.
+3.  Pomares-Meza GM, Camargo Caicedo Y, Vil??z-Pereira AM. Long-Term
+    Spatiotemporal Analysis of Precipitation Trends with Implications of
+    ENSO-Driven Variability in the Department of Magdalena, Colombia. Water.
+    2024 Nov 23;16(23):3372.
 
-4. Rise N, Oura C, Drewry J. Climate change and health in the Caribbean: A review highlighting research gaps and priorities. The Journal of Climate Change and Health. 2022 Oct;8:100126.
+4.  Rise N, Oura C, Drewry J. Climate change and health in the Caribbean: A
+    review highlighting research gaps and priorities. The Journal of Climate
+    Change and Health. 2022 Oct;8:100126.
